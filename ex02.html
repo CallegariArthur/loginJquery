@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <style> 
+        body{
+            background-color: #17134c;
+        }
+        .login {
+            margin-top: 8%;
+            background-color: rgb(201, 199, 199);
+            border: solid 1px rgb(201, 199, 199);
+            border-radius: 15px;
+            box-shadow: 5px 8px #888888;
+            width: 30%;
+            margin-left: 35%;
+            height: 320px;
+            display: flex;
+            justify-content: center;
+            padding-top: 5%;
+            text-align: center;
+        }
+
+        .login>div>input {
+            border: solid 1px;
+                      margin-top: 10px;
+        }
+
+        .login>div>button {
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login">
+        <div> <h1>Cadastrar login</h1>
+            <label for="nomeCompleto"></label><input type="text" name="nomeCompleto" id="inomeCompleto"> <br>
+            <label for="senha"></label><input type="text" name="senha" id="isenha" onblur="verificarSenha()">
+            <br>
+            <br>
+            <button type="submit" onclick="verificarNome()">Cadastrar</button>
+            <p id="imsg"></p>
+            <p id="imsg2"></p>
+        </div>
+    </div>
+
+
+    <script>
+
+        function verificarNome() {
+            let nome = $("#inomeCompleto").val().trim();
+            let partesNome = nome.split(" ");
+            if (nome.length < 1) {
+                $("#imsg").html("Por favor, digite seu nome completo.");
+            } else {
+                let contespaco = 0;
+                for (let i = 0; i < nome.length; i++) {
+                    if (nome[i] === " ") {
+                        contespaco++;
+                    }
+                }
+                if (contespaco < 1 || partesNome[partesNome.length - 1].length < 2) {
+                    $("#imsg").html("Por favor, digite seu nome completo.");
+                } else {
+                    $("#imsg").html("Nome completo cadastrado: " + nome);
+                }
+            }
+        }
+
+
+        function verificarSenha() {
+            let letraMin = "abcdefghijklmnopqrstuvwzyz";
+            let letraMai = letraMin.toUpperCase();
+            let num = "0123456789"
+            let especiais = "@#$*_-."
+            let num2 = 0;
+            let letraMin2 = 0;
+            let letraMai2 = 0;
+            let especiais2 = 0;
+            senha = $("#isenha").val().trim();
+            if (senha.length < 7) {
+                $("#imsg2").html("senha invalida");
+            }
+            else {
+                for (let i = 0; i < senha.length; i++) {
+                    if (letraMai.includes(senha[i])) {
+                        letraMai2++;
+                    }
+                    else {
+                        if (letraMin.includes(senha[i])) {
+                            letraMin2++;
+                        } else {
+                            if (especiais.includes(senha[i])) {
+                                especiais2++;
+                            }
+                            else {
+                                if (num.includes([senha[i]])) {
+                                    num2++;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (num2 < 1) {
+                    $("#imsg2").html("a senha deve ter pelo menos 1 numero");
+                }
+                else {
+                    if (letraMin2 < 1) {
+                        $("#imsg2").html("a senha deve ter pelo menos 1 letra minuscula");
+                    }
+                    else {
+                        if (letraMai2 < 1) {
+                            $("#imsg2").html("a senha deve ter pelo menos 1 letra maiuscula");
+                        }
+                        else {
+                            if (especiais2 < 1) {
+                                $("#imsg2").html("a senha deve ter pelo menos 1 carater especial");
+                            }
+                            else {
+                                $("#imsg2").html("senha cadastrado com sucesso: " + senha);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
