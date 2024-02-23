@@ -7,10 +7,11 @@
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <style> 
-        body{
+    <style>
+        body {
             background-color: #17134c;
         }
+
         .login {
             margin-top: 8%;
             background-color: rgb(201, 199, 199);
@@ -28,7 +29,7 @@
 
         .login>div>input {
             border: solid 1px;
-                      margin-top: 10px;
+            margin-top: 10px;
         }
 
         .login>div>button {
@@ -40,7 +41,8 @@
 <body>
 
     <div class="login">
-        <div> <h1>Cadastrar login</h1>
+        <div>
+            <h1>Cadastrar login</h1>
             <label for="nomeCompleto"></label><input type="text" name="nomeCompleto" id="inomeCompleto"> <br>
             <label for="senha"></label><input type="text" name="senha" id="isenha" onblur="verificarSenha()">
             <br>
@@ -56,20 +58,24 @@
 
         function verificarNome() {
             let nome = $("#inomeCompleto").val().trim();
+            while (nome.includes("  ")) {
+                nome = nome.replace("  ", " ");
+            }
+            $("#inomeCompleto").val(nome);
             let partesNome = nome.split(" ");
-            if (nome.length < 1) {
+            if (partesNome.length == 1 && partesNome[partesNome.length - 1].length < 2) {
                 $("#imsg").html("Por favor, digite seu nome completo.");
             } else {
-                let contespaco = 0;
-                for (let i = 0; i < nome.length; i++) {
-                    if (nome[i] === " ") {
-                        contespaco++;
-                    }
-                }
-                if (contespaco < 1 || partesNome[partesNome.length - 1].length < 2) {
-                    $("#imsg").html("Por favor, digite seu nome completo.");
+                if (partesNome.length == 2 && partesNome[partesNome.length - 1].length > 2) {
+                    $("#imsg").html("Nome cadastrado: " + nome);
                 } else {
-                    $("#imsg").html("Nome completo cadastrado: " + nome);
+                    if (partesNome.length == 3) {
+                        $("#imsg").html("Nome cadastraqdo: " + nome);
+                    } else {
+                        if (partesNome.length > 3) {
+                            $("#imsg").html("Nome cadastrado: " + partesNome[0] + " " + partesNome[partesNome.length - 1])
+                        }
+                    }
                 }
             }
         }
