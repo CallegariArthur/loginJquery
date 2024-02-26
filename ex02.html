@@ -63,14 +63,14 @@
             }
             $("#inomeCompleto").val(nome);
             let partesNome = nome.split(" ");
-            if (partesNome.length == 1 && partesNome[partesNome.length - 1].length < 2) {
+            if (partesNome.length == 2 && partesNome[partesNome.length - 1].length < 2) {
                 $("#imsg").html("Por favor, digite seu nome completo.");
             } else {
-                if (partesNome.length == 2 && partesNome[partesNome.length - 1].length > 2) {
+                if (partesNome.length == 2 && partesNome[partesNome.length - 1].length >= 2) {
                     $("#imsg").html("Nome cadastrado: " + nome);
                 } else {
                     if (partesNome.length == 3) {
-                        $("#imsg").html("Nome cadastraqdo: " + nome);
+                        $("#imsg").html("Nome cadastrado: " + nome);
                     } else {
                         if (partesNome.length > 3) {
                             $("#imsg").html("Nome cadastrado: " + partesNome[0] + " " + partesNome[partesNome.length - 1])
